@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <!-- =========================================================
+   PORTFOLIO STATIC — VERSI RAMAH PEMULA
+   Cara pakai (cukup 1 langkah):
+   1) GULIR ke bagian JS bertanda ===== EDIT DI SINI =====,
+      lalu ubah isi objek SITE (nama, email, proyek, dll.).
+   2) Selesai. Semua teks & tautan akan ikut berubah otomatis.
+   Catatan:
+   - Tak perlu menyentuh HTML di bawah kecuali ingin menambah seksi.
+   - Tidak ada proses build. Cukup upload index.html ke GitHub Pages.
+  ========================================================== -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><span id="title-text"></span></title>
+  <meta id="meta-desc" name="description" content="" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <!-- Open Graph dasar -->
+  <meta property="og:title" id="og-title" content="" />
+  <meta property="og:description" id="og-desc" content="" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" id="og-image" content="" />
+  <meta property="og:url" id="og-url" content="" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="tw-title" content="" />
+  <meta name="twitter:description" id="tw-desc" content="" />
+  <meta name="twitter:image" id="tw-image" content="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Konfigurasi Tailwind (langsung via CDN, tanpa build)
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] },
+          boxShadow: { soft: '0 10px 30px -12px rgba(0,0,0,.25)' }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Sedikit peningkat UX, aman untuk pemula */
+    ::-webkit-scrollbar { width: 10px }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px }
+    .dark ::-webkit-scrollbar-thumb { background: #334155 }
+  </style>
+  <link id="favicon" rel="icon" href="" />
+  <script>
+    // Simpan preferensi dark mode
+    (function(){
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+<body class="bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+  <a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:bg-sky-600 focus:text-white focus:px-3 focus:py-2 focus:rounded-lg">Lompat ke konten</a>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-slate-900/70 border-b border-slate-200/60 dark:border-slate-700/60">
+    <nav class="container mx-auto max-w-6xl px-4">
+      <div class="flex h-16 items-center justify-between">
+        <a href="#home" class="flex items-center gap-2 group" aria-label="Beranda">
+          <div class="h-8 w-8 rounded-2xl bg-gradient-to-br from-sky-500 to-cyan-400 shadow-soft"></div>
+          <span id="brand-name" class="font-extrabold tracking-tight group-hover:text-sky-600"></span>
+        </a>
+        <div class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#about" class="text-slate-700 hover:text-sky-600 dark:text-slate-300">Tentang</a>
+          <a href="#skills" class="text-slate-700 hover:text-sky-600 dark:text-slate-300">Keahlian</a>
+          <a href="#projects" class="text-slate-700 hover:text-sky-600 dark:text-slate-300">Proyek</a>
+          <a href="#experience" class="text-slate-700 hover:text-sky-600 dark:text-slate-300">Pengalaman</a>
+          <a href="#contact" class="text-slate-700 hover:text-sky-600 dark:text-slate-300">Kontak</a>
+          <button id="themeToggle" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 font-medium hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800" aria-label="Toggle tema gelap">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364-1.414-1.414M7.05 7.05 5.636 5.636m12.728 0-1.414 1.414M7.05 16.95l-1.414 1.414"/><circle cx="12" cy="12" r="4"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span class="hidden lg:inline">Tema</span>
+          </button>
+        </div>
+        <button id="menuBtn" class="md:hidden inline-flex items-center rounded-xl border border-slate-200 px-3 py-2 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800" aria-expanded="false" aria-controls="mobileMenu" aria-label="Buka menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+      <div id="mobileMenu" class="hidden md:hidden pb-4">
+        <div class="flex flex-col gap-2">
+          <a class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" href="#about">Tentang</a>
+          <a class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" href="#skills">Keahlian</a>
+          <a class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" href="#projects">Proyek</a>
+          <a class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" href="#experience">Pengalaman</a>
+          <a class="rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" href="#contact">Kontak</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 opacity-30 dark:opacity-20" aria-hidden="true">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1200 600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><circle cx="200" cy="120" r="120" fill="url(#g)"/><circle cx="1000" cy="520" r="200" fill="url(#g)"/></svg>
+    </div>
+    <div class="container mx-auto max-w-6xl px-4 pt-14 pb-16 md:pt-20 md:pb-24">
+      <div class="grid md:grid-cols-2 items-center gap-10">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300">Tersedia untuk freelance</span>
+          <h1 class="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">Halo, saya <span id="name" class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-cyan-400"></span></h1>
+          <p id="tagline" class="mt-4 text-slate-600 dark:text-slate-300 text-lg"></p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a id="cta-hire" href="#" class="inline-flex items-center justify-center rounded-xl bg-sky-600 px-5 py-3 text-white font-semibold shadow-soft hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">Hire Me</a>
+            <a id="cta-cv" href="#" class="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 font-semibold hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800">Download CV</a>
+          </div>
+          <ul class="mt-6 flex items-center gap-5 text-slate-500 dark:text-slate-400">
+            <li><a id="link-linkedin" aria-label="LinkedIn" class="hover:text-sky-600">LinkedIn</a></li>
+            <li><a id="link-github" aria-label="GitHub" class="hover:text-sky-600">GitHub</a></li>
+            <li><a id="link-dribbble" aria-label="Dribbble" class="hover:text-sky-600">Dribbble</a></li>
+            <li><a id="link-behance" aria-label="Behance" class="hover:text-sky-600">Behance</a></li>
+          </ul>
+        </div>
+        <div class="relative">
+          <img id="foto" src="" alt="Foto" class="w-full max-w-md mx-auto rounded-3xl border border-slate-200 shadow-soft dark:border-slate-700 object-cover"/>
+          <div class="absolute -bottom-6 -left-6 hidden md:block">
+            <div class="rounded-2xl bg-white/80 px-4 py-3 text-sm shadow-soft backdrop-blur dark:bg-slate-800/80">
+              <p class="font-semibold"><span id="exp-year"></span>+ tahun</p>
+              <p class="text-slate-600 dark:text-slate-300">di industri <span id="industry"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="border-t border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto max-w-6xl px-4 py-16">
+      <div class="grid md:grid-cols-3 gap-10 items-start">
+        <div>
+          <h2 class="text-2xl font-bold">Tentang</h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300">Profil singkat dan keunggulan.</p>
+        </div>
+        <div class="md:col-span-2">
+          <p id="about-text" class="text-lg leading-relaxed text-slate-700 dark:text-slate-300"></p>
+          <div class="mt-6 grid sm:grid-cols-2 gap-4">
+            <div class="rounded-2xl border border-slate-200 p-5 dark:border-slate-700">
+              <p class="text-sm text-slate-500">Spesialisasi</p>
+              <p id="specialty" class="mt-1 font-semibold"></p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 p-5 dark:border-slate-700">
+              <p class="text-sm text-slate-500">Tools favorit</p>
+              <p id="favtools" class="mt-1 font-semibold"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="border-t border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto max-w-6xl px-4 py-16">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-bold">Keahlian</h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300">Teknologi & skill yang sering dipakai.</p>
+        </div>
+        <a href="#contact" class="hidden sm:inline-block rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800">Butuh kolaborasi?</a>
+      </div>
+      <ul id="skillsList" class="mt-6 flex flex-wrap gap-2"></ul>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="border-t border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto max-w-6xl px-4 py-16">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-bold">Proyek Terpilih</h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300">Beberapa karya unggulan terbaru.</p>
+        </div>
+        <a id="see-all" href="#" class="hidden sm:inline-block text-sky-600 hover:underline">Lihat semua →</a>
+      </div>
+      <div id="projectsGrid" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="border-t border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto max-w-6xl px-4 py-16">
+      <h2 class="text-2xl font-bold">Pengalaman</h2>
+      <div class="mt-6 grid md:grid-cols-2 gap-6" id="expList"></div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="border-t border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto max-w-6xl px-4 py-16">
+      <h2 class="text-2xl font-bold">Testimoni</h2>
+      <div id="testiGrid" class="mt-8 grid md:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="border-t border-slate-200 dark:border-slate-800">
+    <div class="container mx-auto max-w-6xl px-4 py-16">
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="text-2xl font-bold">Hubungi</h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300">Punya ide proyek atau butuh bantuan desain/development? Saya siap bantu.</p>
+          <div class="mt-6 space-y-2 text-slate-600 dark:text-slate-300">
+            <p>Email: <a id="email-link" class="text-sky-600 hover:underline" href="#"></a></p>
+            <p>Lokasi: <span id="lokasi"></span></p>
+          </div>
+        </div>
+        <form id="contact-form" action="#" method="POST" class="rounded-2xl border border-slate-200 p-6 shadow-soft dark:border-slate-700">
+          <p class="text-sm text-slate-500 mb-3">Form ini bisa aktif bila Anda mengisi endpoint Formspree di bagian konfigurasi.</p>
+          <label class="block text-sm font-medium" for="name">Nama</label>
+          <input id="name" name="name" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-800" placeholder="Nama Anda" required>
+          <label class="mt-4 block text-sm font-medium" for="email">Email</label>
+          <input id="email" type="email" name="email" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-800" placeholder="email@contoh.com" required>
+          <label class="mt-4 block text-sm font-medium" for="message">Pesan</label>
+          <textarea id="message" name="message" rows="5" class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-800" placeholder="Ceritakan kebutuhan Anda" required></textarea>
+          <input type="text" name="_gotcha" class="hidden" aria-hidden="true">
+          <button class="mt-5 w-full rounded-xl bg-sky-600 px-5 py-3 font-semibold text-white shadow-soft hover:bg-sky-700">Kirim</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 py-10 text-sm text-slate-500 dark:border-slate-800">
+    <div class="container mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© <span id="year"></span> <span id="footer-name"></span>. All rights reserved.</p>
+      <div class="flex items-center gap-3">
+        <a href="#home" class="hover:text-sky-600">Beranda</a>
+        <span aria-hidden>•</span>
+        <button id="backToTop" class="hover:text-sky-600">Ke atas ↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // =========================================================
+  // ======= EDIT DI SINI — PENGATURAN DASAR WEBSITE =========
+  // Ubah nilai-nilai di bawah sesuai profil Anda.
+  // Tidak perlu mengerti coding: cukup ganti teks di antara tanda kutip.
+  // =========================================================
+  const SITE = {
+    nama: "M Nazri Narsa",
+    tagline: "UI/UX Designer & Graphic Designer — fokus pada hasil desain estetik, cepat, dan berdampak.",
+    email: "nazrilawliet@gmail.com",
+    link_cv: "#", // taruh link Google Drive/Dropbox CV Anda
+    lokasi: "Pekanbaru, Indonesia",
+    foto: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=1200&auto=format&fit=crop",
+    pengalaman_tahun: 2,
+    industri: "Teknologi",
+    socials: {
+      linkedin: "#",
+      github: "#",
+      dribbble: "#",
+      behance: "#"
+    },
+    // Opsional (SEO/Preview)
+    website_url: "",
+    og_image: "",
+    favicon: "",
+    // Endpoint form (opsional). Buat di https://formspree.io
+    formspree: "" // contoh: "https://formspree.io/f/abcdwxyz"
+  };
+
+  // Keahlian (tambah/hapus item sesuka Anda)
+  const SKILLS = ['Figma','Tailwind CSS','HTML','CSS','JavaScript','PHP','Git','GitHub','Responsive Design','Accessibility'];
+
+  // Proyek — ubah judul/deskripsi/gambar/link.
+  const PROJECTS = [
+    { title: 'Aplikasi Pembayaran',
+      img: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=1200&auto=format&fit=crop',
+      desc: 'UI/UX aplikasi pembayaran fokus kecepatan & keamanan.',
+      tags: ['UI/UX','Mobile','Fintech'], demo: '#', repo: '#' },
+    { title: 'Dashboard Analytics',
+      img: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=1200&auto=format&fit=crop',
+      desc: 'Dashboard interaktif untuk KPI bisnis real-time.',
+      tags: ['Web','Dashboard','DataViz'], demo: '#', repo: '#' },
+    { title: 'Food Delivery Website',
+      img: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1200&auto=format&fit=crop',
+      desc: 'Website pemesanan makanan, checkout ringkas.',
+      tags: ['Landing','E‑commerce'], demo: '#', repo: '#' }
+  ];
+
+  // Pengalaman kerja — tulis poin singkat dan jelas.
+  const EXPERIENCE = [
+    { role: 'UI/UX Designer', company: 'Vendor App', period: '2022 — Sekarang',
+      points: ['Desain flow pembayaran & dashboard admin.','Kolaborasi dengan dev & QA (Figma, Git).'] },
+    { role: 'Front‑End Developer', company: 'Freelance', period: '2021 — 2023',
+      points: ['Landing page performa tinggi (99+ Lighthouse).','Tailwind, aksesibilitas, SEO dasar, analitik.'] }
+  ];
+
+  // Testimoni klien (opsional)
+  const TESTIMONIALS = [
+    { name: 'Adit — PM', text: 'Proses cepat & komunikatif. KPI naik 23% setelah redesign.' },
+    { name: 'Sari — Founder', text: 'Detail & konsistensi design system sangat membantu.' }
+  ];
+  // =========================================================
+
+  // ========= JANGAN DIEDIT DI BAWAH INI (LOGIKA RINGAN) =====
+  const $ = (sel) => document.querySelector(sel);
+  const set = (sel, val) => { const el = $(sel); if (el) el.textContent = val };
+  const setAttr = (sel, name, val) => { const el = $(sel); if (el && val) el.setAttribute(name, val) };
+  const setHref = (sel, val) => { const el = $(sel); if (el && val) { el.href = val } };
+
+  // Header & SEO
+  set('#title-text', `${SITE.nama} — Portofolio`);
+  setAttr('#meta-desc','content', `Portofolio karya & pengalaman ${SITE.nama}.`);
+  setAttr('#og-title','content', `${SITE.nama} — Portofolio`);
+  setAttr('#og-desc','content', `Lihat karya, pengalaman, dan kontak ${SITE.nama}.`);
+  setAttr('#tw-title','content', `${SITE.nama} — Portofolio`);
+  setAttr('#tw-desc','content', `Lihat karya, pengalaman, dan kontak ${SITE.nama}.`);
+  setAttr('#og-image','content', SITE.og_image);
+  setAttr('#tw-image','content', SITE.og_image);
+  setAttr('#og-url','content', SITE.website_url);
+  setAttr('#favicon','href', SITE.favicon);
+
+  // Hero
+  set('#brand-name', SITE.nama);
+  set('#name', SITE.nama);
+  set('#tagline', SITE.tagline);
+  setHref('#cta-hire', `mailto:${SITE.email}`);
+  setHref('#cta-cv', SITE.link_cv);
+
+  // Sosial
+  setHref('#link-linkedin', SITE.socials.linkedin);
+  setHref('#link-github', SITE.socials.github);
+  setHref('#link-dribbble', SITE.socials.dribbble);
+  setHref('#link-behance', SITE.socials.behance);
+
+  // Foto & info singkat
+  setAttr('#foto','src', SITE.foto || '');
+  set('#exp-year', SITE.pengalaman_tahun);
+  set('#industry', SITE.industri);
+
+  // About
+  set('#about-text', '');
+  $('#about-text').textContent = `Saya ${SITE.nama}. ${SITE.tagline}`;
+  set('#specialty', 'UI/UX, Graphic Design, Prototyping');
+  set('#favtools', 'Figma, CorelDraw, Photoshop, Canva');
+
+  // Kontak
+  set('#lokasi', SITE.lokasi);
+  const emailLink = $('#email-link');
+  if (emailLink) { emailLink.textContent = SITE.email; emailLink.href = `mailto:${SITE.email}` }
+
+  // Form endpoint (opsional)
+  const form = $('#contact-form');
+  if (form && SITE.formspree) form.action = SITE.formspree;
+
+  // Skills
+  const skillsList = $('#skillsList');
+  skillsList.innerHTML = SKILLS.map(s => `<li class="rounded-full border border-slate-300 px-3 py-1 text-sm dark:border-slate-600">${s}</li>`).join('');
+
+  // Projects
+  const grid = $('#projectsGrid');
+  grid.innerHTML = PROJECTS.map(p => `
+    <article class="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-xl dark:border-slate-700 dark:bg-slate-800">
+      <a href="${p.demo}" target="_blank" rel="noopener" class="block">
+        <img class="h-44 w-full object-cover" src="${p.img}" alt="${p.title}" loading="lazy"/>
+      </a>
+      <div class="p-5">
+        <h3 class="font-semibold text-lg">${p.title}</h3>
+        <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">${p.desc}</p>
+        <ul class="mt-3 flex flex-wrap gap-2 text-xs text-slate-600 dark:text-slate-300">
+          ${p.tags.map(t => `<li class="rounded-full border border-slate-300 px-2 py-0.5 dark:border-slate-600">${t}</li>`).join('')}
+        </ul>
+        <div class="mt-4 flex items-center gap-3 text-sm">
+          <a class="text-sky-600 hover:underline" href="${p.demo}" target="_blank" rel="noopener">Demo</a>
+          <span aria-hidden>•</span>
+          <a class="hover:underline" href="${p.repo}" target="_blank" rel="noopener">Repo</a>
+        </div>
+      </div>
+    </article>`).join('');
+
+  // Experience
+  const expList = $('#expList');
+  expList.innerHTML = EXPERIENCE.map(e => `
+    <section class="rounded-2xl border border-slate-200 p-6 dark:border-slate-700">
+      <header class="flex items-center justify-between">
+        <h3 class="font-semibold">${e.role} · <span class="text-sky-600">${e.company}</span></h3>
+        <span class="text-sm text-slate-500 dark:text-slate-400">${e.period}</span>
+      </header>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-slate-700 dark:text-slate-300">
+        ${e.points.map(pt => `<li>${pt}</li>`).join('')}
+      </ul>
+    </section>`).join('');
+
+  // Testimonials
+  const testiGrid = $('#testiGrid');
+  testiGrid.innerHTML = TESTIMONIALS.map(t => `
+    <blockquote class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-700 dark:bg-slate-800">
+      <p class="text-slate-700 dark:text-slate-300">“${t.text}”</p>
+      <footer class="mt-3 text-sm text-slate-500">— ${t.name}</footer>
+    </blockquote>`).join('');
+
+  // Footer
+  set('#footer-name', SITE.nama);
+  $('#year').textContent = new Date().getFullYear();
+  $('#backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
+
+  // Mobile menu & tema
+  const menuBtn = $('#menuBtn');
+  const mobileMenu = $('#mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(!open));
+  });
+  $('#themeToggle').addEventListener('click', () => {
+    const d = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', d ? 'dark' : 'light');
+  });
+
+  // Link "lihat semua" (opsional): arahkan ke Dribbble/GitHub jika diisi
+  const seeAll = $('#see-all');
+  const pref = SITE.socials.dribbble || SITE.socials.github || '#';
+  seeAll.href = pref;
+  </script>
+</body>
+</html>
